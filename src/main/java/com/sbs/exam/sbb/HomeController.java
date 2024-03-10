@@ -2,6 +2,7 @@ package com.sbs.exam.sbb;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -143,5 +144,24 @@ public class HomeController {
       case "임꺽정", "신짱구" -> "ESFJ";
       default -> "모름";
     };
+  }
+
+  @GetMapping("/saveSession/{name}/{value}")
+  @ResponseBody
+  public String saveSession(@PathVariable String name, @PathVariable String value, HttpServletRequest req) {
+    HttpSession session = req.getSession();
+
+    // req => 쿠키 => JSESSIONID => 세션을 얻을 수 있다.
+    session.setAttribute(name, value);
+
+    return "세션변수의 %s의 값이 %s(으)로 설정되었습니다.".formatted(name, value);
+  }
+
+  @GetMapping("/getSession/{name}")
+  @ResponseBody
+  public String getSession(@PathVariable String name, HttpSession session) {
+    String value = (String) session.getAttribute(name);
+
+    return "세션변수의 %s의 값이 %s입니다.".formatted(name, value);
   }
 }

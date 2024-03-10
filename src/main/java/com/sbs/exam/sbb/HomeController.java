@@ -16,9 +16,11 @@ import java.util.stream.IntStream;
 @Controller
 public class HomeController {
   private int increaseNo;
+  private List<Article> articles;
 
   public HomeController() {
     increaseNo = -1;
+    articles = new ArrayList<>();
   }
 
   @RequestMapping("/sbb")
@@ -99,17 +101,17 @@ public class HomeController {
   @GetMapping("/gugudan")
   @ResponseBody
   public String showGugudan(Integer dan, Integer limit) {
-    if(dan == null) {
+    if (dan == null) {
       dan = 9;
     }
 
-    if(limit == null) {
-     limit = 9;
+    if (limit == null) {
+      limit = 9;
     }
 
     String gugudanFormat = "";
 
-    for(int i = 1; i <= limit; i++) {
+    for (int i = 1; i <= limit; i++) {
       gugudanFormat += "%d * %d = %d<br>".formatted(dan, i, dan * i);
     }
 
@@ -119,11 +121,11 @@ public class HomeController {
   @GetMapping("/gugudan2")
   @ResponseBody
   public String showGugudan2(Integer dan, Integer limit) {
-    if(dan == null) {
+    if (dan == null) {
       dan = 9;
     }
 
-    if(limit == null) {
+    if (limit == null) {
       limit = 9;
     }
 
@@ -305,6 +307,24 @@ public class HomeController {
 
     return list;
   }
+
+  @GetMapping("/addArticle")
+  @ResponseBody
+  public String addArticle(String title, String body) {
+    Article article = new Article(title, body);
+
+    System.out.println(article);
+
+    articles.add(article);
+
+    return "%d번 게시물이 추가되었습니다.".formatted(article.getId());
+  }
+
+  @GetMapping("/article/list")
+  @ResponseBody
+  public List<Article> getArticles() {
+    return articles;
+  }
 }
 
 class Animal {
@@ -360,4 +380,23 @@ class AnimalV2 {
   @Setter
   private String name;
   private final List<Integer> related;
+}
+
+@AllArgsConstructor
+@Getter
+@ToString
+class Article {
+  private static int lastId;
+  private final int id;
+  private final String title;
+  private final String body;
+
+  static {
+    lastId = 0;
+  }
+
+  public Article(String title, String body) {
+    this(++lastId, title, body);
+  }
+
 }

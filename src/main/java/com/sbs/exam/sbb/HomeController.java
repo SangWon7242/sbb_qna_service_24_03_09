@@ -476,9 +476,16 @@ class Article {
 }
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
 class Person {
   private int id;
   private int age;
   private String name;
+
+  public Person(int age, String name) {
+    this.age = age;
+    this.name = name;
+  }
 }

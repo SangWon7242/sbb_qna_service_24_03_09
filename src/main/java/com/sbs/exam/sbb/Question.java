@@ -17,5 +17,5 @@ public class Question {
   @Column(columnDefinition = "TEXT") // 본문이 많기 때문에 TEXT
   private String content;
 
-  private LocalDateTime createDate;
+  private LocalDateTime createDate; // Datetime
 }

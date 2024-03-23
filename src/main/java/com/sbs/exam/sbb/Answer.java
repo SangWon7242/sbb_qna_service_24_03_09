@@ -20,5 +20,6 @@ public class Answer {
   private LocalDateTime createDate;
 
   @ManyToOne
+  @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT)) // 외래키 제거
   private Question question;
 }

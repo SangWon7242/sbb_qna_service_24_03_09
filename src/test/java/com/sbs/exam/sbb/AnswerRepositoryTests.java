@@ -1,5 +1,6 @@
 package com.sbs.exam.sbb;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,9 +15,26 @@ class AnswerRepositoryTests {
 
   @Autowired
   private AnswerRepository answerRepository;
+  private static int lastSampleDataId;
+
+  @BeforeEach
+  void beforeEach() {
+    clearData();
+    createSampleData();
+  }
+
+  private void clearData() {
+    questionRepository.disableForeignKeyChecks();
+    answerRepository.truncate();
+    questionRepository.enableForeignKeyChecks();
+  }
+
+  private void createSampleData() {
+
+  }
 
   @Test
-  void testJpa() {
+  void 저장() {
     Question q = questionRepository.findById(2).get();
 
     Answer a = new Answer();

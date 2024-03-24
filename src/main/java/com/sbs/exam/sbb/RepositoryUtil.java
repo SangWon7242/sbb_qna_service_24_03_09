@@ -17,9 +17,9 @@ public interface RepositoryUtil {
 
   // default 메서드를 구현하면 인터페이스 내에 구상 메서드를 정의하는게 가능하다.
   default void truncateTable() {
-    disableForeignKeyChecks();
+    // disableForeignKeyChecks();
     truncate();
-    enableForeignKeyChecks();
+    // enableForeignKeyChecks();
   }
 
   void truncate();

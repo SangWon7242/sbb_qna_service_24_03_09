@@ -10,7 +10,7 @@ import java.util.List;
 public interface QuestionRepository extends JpaRepository<Question, Integer>, RepositoryUtil {
   @Transactional
   @Modifying
-  @Query(value = "TRUNCATE question", nativeQuery = true)
+  @Query(value = "ALTER TABLE question AUTO_INCREMENT = 1", nativeQuery = true)
   void truncate();
 
   Question findBySubject(String subject);

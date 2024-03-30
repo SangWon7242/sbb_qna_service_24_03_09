@@ -24,14 +24,16 @@ class QuestionRepositoryTests {
 	}
 
 	private void clearData() {
-		questionRepository.disableForeignKeyChecks();
-		questionRepository.truncate();
-		questionRepository.enableForeignKeyChecks();
+		clearData(questionRepository);
 	}
 
 	public static void clearData(QuestionRepository questionRepository) {
 		questionRepository.deleteAll();
 		questionRepository.truncateTable();
+	}
+
+	public void createSampleData() {
+		lastSampleDataId = createSampleData(questionRepository);
 	}
 
 	public static int createSampleData(QuestionRepository questionRepository) {
@@ -48,10 +50,6 @@ class QuestionRepositoryTests {
 		questionRepository.save(q2);  // 두번째 질문 저장
 
 		return q2.getId();
-	}
-
-	public void createSampleData() {
-		lastSampleDataId = createSampleData(questionRepository);
 	}
 
 	@Test

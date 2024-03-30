@@ -1,5 +1,9 @@
 package com.sbs.exam.sbb;
 
+import com.sbs.exam.sbb.answer.Answer;
+import com.sbs.exam.sbb.answer.AnswerRepository;
+import com.sbs.exam.sbb.qustion.Question;
+import com.sbs.exam.sbb.qustion.QuestionRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

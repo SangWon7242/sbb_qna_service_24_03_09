@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class gitr  {
+public class QuestionService {
   private final QuestionRepository questionRepository;
 
   public List<Question> getList() {

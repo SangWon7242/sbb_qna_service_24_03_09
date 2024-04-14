@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor // 생성자 주입
 @Service
 public class UserService {
 

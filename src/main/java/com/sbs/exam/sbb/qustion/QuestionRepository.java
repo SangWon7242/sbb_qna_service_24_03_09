@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface QuestionRepository extends JpaRepository<Question, Integer>, RepositoryUtil {
+public interface QuestionRepository extends JpaRepository<Question, Long>, RepositoryUtil {
   @Transactional
   @Modifying
   @Query(value = "ALTER TABLE question AUTO_INCREMENT = 1", nativeQuery = true)

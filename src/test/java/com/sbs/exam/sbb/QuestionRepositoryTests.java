@@ -21,7 +21,7 @@ class QuestionRepositoryTests {
 
 	@Autowired
 	private QuestionRepository questionRepository;
-	private static int lastSampleDataId;
+	private static long lastSampleDataId;
 
 	@BeforeEach
 	void beforeEach() {
@@ -42,7 +42,7 @@ class QuestionRepositoryTests {
 		lastSampleDataId = createSampleData(questionRepository);
 	}
 
-	public static int createSampleData(QuestionRepository questionRepository) {
+	public static Long createSampleData(QuestionRepository questionRepository) {
 		Question q1 = new Question();
 		q1.setSubject("sbb가 무엇인가요?");
 		q1.setContent("sbb에 대해서 알고 싶습니다.");
@@ -80,11 +80,11 @@ class QuestionRepositoryTests {
 	void 수정() {
 		assertThat(questionRepository.count()).isEqualTo(lastSampleDataId);
 
-		Question q = questionRepository.findById(1).get();
+		Question q = questionRepository.findById(1L).get();
 		q.setSubject("수정된 제목");
 		questionRepository.save(q);
 
-		q = questionRepository.findById(1).get();
+		q = questionRepository.findById(1L).get();
 		assertThat(q.getSubject()).isEqualTo("수정된 제목");
 	}
 
@@ -92,7 +92,7 @@ class QuestionRepositoryTests {
 	void 삭제() {
 		assertThat(questionRepository.count()).isEqualTo(lastSampleDataId);
 
-		Question q = questionRepository.findById(1).get();
+		Question q = questionRepository.findById(1L).get();
 		questionRepository.delete(q);
 
 		assertThat(questionRepository.count()).isEqualTo(lastSampleDataId - 1);
@@ -149,7 +149,7 @@ class QuestionRepositoryTests {
 	@Test
 	void Pageable() {
 		// Pageable : 한 페이지에 몇 개의 아이템이 나와야 하는지 + 현재 몇 페이지인지
-		Pageable pageable = PageRequest.of(0, lastSampleDataId);
+		Pageable pageable = PageRequest.of(0, (int) lastSampleDataId);
 
 		Page<Question> page = questionRepository.findAll(pageable);
 		assertThat(page.getTotalPages()).isEqualTo(2);

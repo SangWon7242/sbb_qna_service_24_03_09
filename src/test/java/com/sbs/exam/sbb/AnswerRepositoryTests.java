@@ -32,6 +32,10 @@ class AnswerRepositoryTests {
   }
 
   private void clearData() {
+    clearData(answerRepository, questionRepository);
+  }
+
+  public static void clearData(AnswerRepository answerRepository, QuestionRepository questionRepository) {
     QuestionRepositoryTests.clearData(questionRepository);
     answerRepository.deleteAll();
     answerRepository.truncateTable();

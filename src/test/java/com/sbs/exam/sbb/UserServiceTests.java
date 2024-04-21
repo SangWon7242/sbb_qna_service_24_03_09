@@ -32,7 +32,7 @@ public class UserServiceTests {
     createSampleData(userService);
   }
 
-  private void createSampleData(UserService userService) {
+  public static void createSampleData(UserService userService) {
     userService.create("admin", "admin@test.com", "1234");
     userService.create("user1", "user1@test.com", "1234");
   }

@@ -6,6 +6,7 @@ import com.sbs.exam.sbb.qustion.Question;
 import com.sbs.exam.sbb.qustion.QuestionRepository;
 import com.sbs.exam.sbb.user.SiteUser;
 import com.sbs.exam.sbb.user.UserRepository;
+import com.sbs.exam.sbb.user.UserService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,9 @@ class AnswerRepositoryTests {
   @Autowired
   private AnswerRepository answerRepository;
 
+  @Autowired
+  private UserService userService;
+
   @BeforeEach
   void beforeEach() {
     clearData();
@@ -47,7 +51,7 @@ class AnswerRepositoryTests {
   }
 
   private void createSampleData() {
-    QuestionRepositoryTests.createSampleData(questionRepository);
+    QuestionRepositoryTests.createSampleData(userService, questionRepository);
 
     Question q = questionRepository.findById(1L).get();
 

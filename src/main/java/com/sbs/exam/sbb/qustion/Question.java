@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -33,6 +34,9 @@ public class Question {
 
   @OneToMany(mappedBy = "question", cascade = {CascadeType.REMOVE, CascadeType.ALL})
   private List<Answer> answerList = new ArrayList<>();
+
+  @ManyToMany
+  Set<SiteUser> voter;
 
   public void addAnswer(Answer answer) {
     answer.setQuestion(this);

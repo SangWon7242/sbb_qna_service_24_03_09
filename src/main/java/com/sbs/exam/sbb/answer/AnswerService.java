@@ -1,5 +1,6 @@
 package com.sbs.exam.sbb.answer;
 
+import com.sbs.exam.sbb.DataNotFoundException;
 import com.sbs.exam.sbb.qustion.Question;
 import com.sbs.exam.sbb.user.SiteUser;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,16 @@ public class AnswerService {
 
     question.addAnswer(answer);
 
+    answerRepository.save(answer);
+  }
+
+  public Answer getAnswer(Long id) {
+    return answerRepository.findById(id).orElseThrow(() -> new DataNotFoundException("answer not found"));
+  }
+
+  public void modify(Answer answer, String content) {
+    answer.setContent(content);
+    answer.setModifyDate(LocalDateTime.now());
     answerRepository.save(answer);
   }
 }

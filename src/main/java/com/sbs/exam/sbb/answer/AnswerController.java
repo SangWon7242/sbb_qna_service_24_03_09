@@ -1,6 +1,5 @@
 package com.sbs.exam.sbb.answer;
 
-import com.sbs.exam.sbb.DataNotFoundException;
 import com.sbs.exam.sbb.qustion.Question;
 import com.sbs.exam.sbb.qustion.QuestionService;
 import com.sbs.exam.sbb.user.SiteUser;
@@ -54,14 +53,12 @@ public class AnswerController {
   public String answerModify(AnswerForm answerForm, @PathVariable("id") Long id, Principal principal) {
     Answer answer = answerService.getAnswer(id);
 
-    if(answer == null) {
-      throw new DataNotFoundException("데이터가 없습니다.");
-    }
-
     if (!answer.getAuthor().getUsername().equals(principal.getName())) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
     }
+
     answerForm.setContent(answer.getContent());
+
     return "answer_form";
   }
 
@@ -78,6 +75,19 @@ public class AnswerController {
     }
 
     answerService.modify(answer, answerForm.getContent());
+    return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
+  }
+
+  @PreAuthorize("isAuthenticated()")
+  @GetMapping("/delete/{id}")
+  public String answerDelete(Principal principal, @PathVariable("id") Long id) {
+    Answer answer = answerService.getAnswer(id);
+
+    if (!answer.getAuthor().getUsername().equals(principal.getName())) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+    }
+
+    answerService.delete(answer);
     return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
   }
 }

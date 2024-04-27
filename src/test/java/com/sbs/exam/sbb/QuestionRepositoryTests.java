@@ -57,7 +57,7 @@ class QuestionRepositoryTests {
 		lastSampleDataId = createSampleData(userService, questionRepository);
 	}
 
-	public static long createSampleData(UserService userService, QuestionRepository questionRepository) {
+	public static Long createSampleData(UserService userService, QuestionRepository questionRepository) {
 		UserServiceTests.createSampleData(userService);
 
 		Question q1 = new Question();

@@ -25,11 +25,11 @@ public class QuestionService {
 
     Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); // 한 페이지당 10개까지 보여주겠다.
 
-    if(kw == null || kw.trim().length() == 0) {
+    if(kw == null || kw.trim().isEmpty()) {
       return questionRepository.findAll(pageable);
     }
 
-    return questionRepository.findBySubjectContainsOrContentContainsOrAuthor_usernameContainsOrAnswerList_contentContainsOrAnswerList_author_usernameContains(kw, kw, kw, kw, kw, pageable);
+    return questionRepository.findDistinctBySubjectContainsOrContentContainsOrAuthor_usernameContainsOrAnswerList_contentContainsOrAnswerList_author_usernameContains(kw, kw, kw, kw, kw, pageable);
   }
 
   public Question getQuestion(Long id) {
